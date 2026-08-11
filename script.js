@@ -32,3 +32,5 @@ navItems.forEach((item) => {
 menuToggle.addEventListener('click', () => {
   sidebar.classList.toggle('open')
 })
+
+renderDashboard()
