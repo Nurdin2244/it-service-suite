@@ -79,29 +79,154 @@
       </section>
 
       <section class="page" id="page-tickets">
-        <p class="page-placeholder">
-          The helpdesk ticket board will live here, connected to the shared
-          user and asset data instead of standing alone.
-          <br><br>
-          <strong>Coming in Stage 3.</strong>
-        </p>
+        <div class="toolbar">
+          <input type="text" id="ticketSearch" placeholder="Search tickets...">
+          <button id="newTicketBtn" class="btn">+ New Ticket</button>
+        </div>
+
+        <div class="board">
+          <div class="column" data-status="todo">
+            <div class="column-header"><span>To Do</span><span class="count" id="count-todo">0</span></div>
+            <div class="card-list" id="list-todo"></div>
+          </div>
+          <div class="column" data-status="progress">
+            <div class="column-header"><span>In Progress</span><span class="count" id="count-progress">0</span></div>
+            <div class="card-list" id="list-progress"></div>
+          </div>
+          <div class="column" data-status="resolved">
+            <div class="column-header"><span>Resolved</span><span class="count" id="count-resolved">0</span></div>
+            <div class="card-list" id="list-resolved"></div>
+          </div>
+        </div>
+
+        <div class="modal-overlay" id="ticketModalOverlay">
+          <div class="modal">
+            <h2>New Ticket</h2>
+            <label>Title</label>
+            <input type="text" id="ticketTitle" placeholder="e.g. Printer not connecting">
+            <label>Requester</label>
+            <input type="text" id="ticketRequester" placeholder="e.g. Sarah from Accounting">
+            <label>Category</label>
+            <select id="ticketCategory">
+              <option>Hardware</option>
+              <option>Software</option>
+              <option>Network</option>
+              <option>Account Access</option>
+              <option>Other</option>
+            </select>
+            <label>Priority</label>
+            <select id="ticketPriority">
+              <option>Low</option>
+              <option selected>Medium</option>
+              <option>High</option>
+            </select>
+            <div class="modal-actions">
+              <button id="ticketCancelBtn" class="btn btn-outline">Cancel</button>
+              <button id="ticketSaveBtn" class="btn">Save Ticket</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="page" id="page-assets">
-        <p class="page-placeholder">
-          The asset inventory will live here, connected to the shared
-          user directory so equipment can be linked to a real person.
-          <br><br>
-          <strong>Coming in Stage 3.</strong>
-        </p>
+        <div class="toolbar">
+          <input type="text" id="assetSearch" placeholder="Search by name, serial, or user...">
+          <select id="assetTypeFilter">
+            <option value="">All Types</option>
+            <option>Laptop</option>
+            <option>Desktop</option>
+            <option>Monitor</option>
+            <option>Printer</option>
+            <option>Phone</option>
+            <option>Other</option>
+          </select>
+          <select id="assetStatusFilter">
+            <option value="">All Statuses</option>
+            <option>In Use</option>
+            <option>In Storage</option>
+            <option>Retired</option>
+          </select>
+          <button id="newAssetBtn" class="btn">+ Add Asset</button>
+          <button id="exportAssetsBtn" class="btn btn-outline">Export CSV</button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="assetTable">
+            <thead>
+              <tr>
+                <th>Asset Name</th><th>Type</th><th>Serial Number</th><th>Assigned To</th>
+                <th>Status</th><th>Purchase Date</th><th>Location</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="assetTableBody"></tbody>
+          </table>
+          <p id="assetEmptyState" class="empty-state hidden">No assets match your search.</p>
+        </div>
+
+        <div class="modal-overlay" id="assetModalOverlay">
+          <div class="modal">
+            <h2 id="assetModalTitle">Add Asset</h2>
+            <label>Asset Name</label>
+            <input type="text" id="assetName" placeholder="e.g. Dell Latitude 5420">
+            <label>Type</label>
+            <select id="assetType">
+              <option>Laptop</option><option>Desktop</option><option>Monitor</option>
+              <option>Printer</option><option>Phone</option><option>Other</option>
+            </select>
+            <label>Serial Number</label>
+            <input type="text" id="assetSerial" placeholder="e.g. SN-4821X">
+            <label>Assigned To</label>
+            <input type="text" id="assetAssigned" placeholder="e.g. Sarah Miller, or leave blank">
+            <label>Status</label>
+            <select id="assetStatus">
+              <option>In Use</option><option>In Storage</option><option>Retired</option>
+            </select>
+            <label>Purchase Date</label>
+            <input type="date" id="assetDate">
+            <label>Location</label>
+            <input type="text" id="assetLocation" placeholder="e.g. Main Office - Floor 2">
+            <div class="modal-actions">
+              <button id="assetCancelBtn" class="btn btn-outline">Cancel</button>
+              <button id="assetSaveBtn" class="btn">Save Asset</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="page" id="page-onboarding">
-        <p class="page-placeholder">
-          The onboarding and offboarding checklist tracker will live here.
-          <br><br>
-          <strong>Coming in Stage 3.</strong>
-        </p>
+        <div class="toolbar">
+          <input type="text" id="onboardSearch" placeholder="Search by name or department...">
+          <select id="onboardTypeFilter">
+            <option value="">All Types</option>
+            <option value="Onboarding">Onboarding</option>
+            <option value="Offboarding">Offboarding</option>
+          </select>
+          <button id="newOnboardBtn" class="btn">+ New Record</button>
+        </div>
+
+        <div class="record-list" id="onboardRecordList"></div>
+        <p id="onboardEmptyState" class="empty-state hidden">No records match your search.</p>
+
+        <div class="modal-overlay" id="onboardModalOverlay">
+          <div class="modal">
+            <h2>New Record</h2>
+            <label>Employee Name</label>
+            <input type="text" id="onboardName" placeholder="e.g. Maria Schmidt">
+            <label>Department</label>
+            <input type="text" id="onboardDept" placeholder="e.g. Accounting">
+            <label>Type</label>
+            <select id="onboardType">
+              <option value="Onboarding">Onboarding</option>
+              <option value="Offboarding">Offboarding</option>
+            </select>
+            <label id="onboardDateLabel">Start Date</label>
+            <input type="date" id="onboardDate">
+            <div class="modal-actions">
+              <button id="onboardCancelBtn" class="btn btn-outline">Cancel</button>
+              <button id="onboardSaveBtn" class="btn">Create Record</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="page" id="page-users">
@@ -120,6 +245,9 @@
 
 <script src="data.js"></script>
 <script src="dashboard.js"></script>
+<script src="tickets.js"></script>
+<script src="assets.js"></script>
+<script src="onboarding.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

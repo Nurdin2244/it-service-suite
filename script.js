@@ -12,6 +12,14 @@ const titles = {
   users: 'Users',
 }
 
+const renderMap = {
+  dashboard: renderDashboard,
+  tickets: renderTickets,
+  assets: renderAssets,
+  onboarding: renderOnboarding,
+  users: () => {}, // Stage 4
+}
+
 navItems.forEach((item) => {
   item.addEventListener('click', () => {
     const target = item.dataset.page
@@ -23,6 +31,7 @@ navItems.forEach((item) => {
     document.getElementById(`page-${target}`).classList.add('active')
 
     pageTitle.textContent = titles[target]
+    renderMap[target]()
 
     // close the sidebar automatically on mobile after picking a page
     sidebar.classList.remove('open')
