@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Service Suite</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">IT Service Suite</div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">&#9632;</span> Dashboard
+      </button>
+      <button class="nav-item" data-page="tickets">
+        <span class="nav-icon">&#9776;</span> Tickets
+      </button>
+      <button class="nav-item" data-page="assets">
+        <span class="nav-icon">&#9724;</span> Assets
+      </button>
+      <button class="nav-item" data-page="onboarding">
+        <span class="nav-icon">&#10003;</span> Onboarding
+      </button>
+      <button class="nav-item" data-page="users">
+        <span class="nav-icon">&#9673;</span> Users
+      </button>
+    </nav>
+  </aside>
+
+  <!-- main area -->
+  <div class="main">
+    <header class="topbar">
+      <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+      <h1 class="page-title" id="pageTitle">Dashboard</h1>
+    </header>
+
+    <main class="content">
+
+      <section class="page active" id="page-dashboard">
+        <p class="page-placeholder">
+          This is where the live overview will go: open tickets, asset status,
+          and upcoming onboarding dates in one view, with a couple of simple charts.
+          <br><br>
+          <strong>Coming in Stage 2.</strong>
+        </p>
+      </section>
+
+      <section class="page" id="page-tickets">
+        <p class="page-placeholder">
+          The helpdesk ticket board will live here, connected to the shared
+          user and asset data instead of standing alone.
+          <br><br>
+          <strong>Coming in Stage 3.</strong>
+        </p>
+      </section>
+
+      <section class="page" id="page-assets">
+        <p class="page-placeholder">
+          The asset inventory will live here, connected to the shared
+          user directory so equipment can be linked to a real person.
+          <br><br>
+          <strong>Coming in Stage 3.</strong>
+        </p>
+      </section>
+
+      <section class="page" id="page-onboarding">
+        <p class="page-placeholder">
+          The onboarding and offboarding checklist tracker will live here.
+          <br><br>
+          <strong>Coming in Stage 3.</strong>
+        </p>
+      </section>
+
+      <section class="page" id="page-users">
+        <p class="page-placeholder">
+          A simple user directory will live here: name, department, role,
+          and the assets assigned to each person.
+          <br><br>
+          <strong>Coming in Stage 4.</strong>
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
