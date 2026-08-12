@@ -112,22 +112,60 @@ onboardRecordList.addEventListener('click', (e) => {
 onboardSearch.addEventListener('input', renderOnboarding)
 onboardTypeFilter.addEventListener('change', renderOnboarding)
 
-newOnboardBtn.addEventListener('click', () => onboardModalOverlay.classList.add('active'))
-onboardCancelBtn.addEventListener('click', () => onboardModalOverlay.classList.remove('active'))
+const onboardNewFields = document.getElementById('onboardNewFields')
+const onboardExistingFields = document.getElementById('onboardExistingFields')
+const onboardUserPicker = document.getElementById('onboardUserPicker')
 
-onboardType.addEventListener('change', () => {
-  onboardDateLabel.textContent = onboardType.value === 'Onboarding' ? 'Start Date' : 'Last Day'
+function updateOnboardModalMode() {
+  const isOffboarding = onboardType.value === 'Offboarding'
+  onboardNewFields.classList.toggle('hidden', isOffboarding)
+  onboardExistingFields.classList.toggle('hidden', !isOffboarding)
+  onboardDateLabel.textContent = isOffboarding ? 'Last Day' : 'Start Date'
+
+  if (isOffboarding) {
+    const users = getUsers()
+    onboardUserPicker.innerHTML = users.map(u =>
+      `<option value="${u.id}">${escapeHtml(u.name)} (${escapeHtml(u.dept)})</option>`
+    ).join('')
+  }
+}
+
+newOnboardBtn.addEventListener('click', () => {
+  updateOnboardModalMode()
+  onboardModalOverlay.classList.add('active')
 })
+onboardCancelBtn.addEventListener('click', () => onboardModalOverlay.classList.remove('active'))
+onboardType.addEventListener('change', updateOnboardModalMode)
 
 onboardSaveBtn.addEventListener('click', () => {
-  const name = document.getElementById('onboardName').value.trim()
-  const dept = document.getElementById('onboardDept').value.trim()
   const type = onboardType.value
   const date = document.getElementById('onboardDate').value
+  let name, dept
 
-  if (!name || !dept) {
-    alert('Please fill in a name and department.')
-    return
+  if (type === 'Offboarding') {
+    const users = getUsers()
+    const selectedId = Number(onboardUserPicker.value)
+    const user = users.find(u => u.id === selectedId)
+    if (!user) {
+      alert('Please select an employee.')
+      return
+    }
+    name = user.name
+    dept = user.dept
+  } else {
+    name = document.getElementById('onboardName').value.trim()
+    dept = document.getElementById('onboardDept').value.trim()
+    if (!name || !dept) {
+      alert('Please fill in a name and department.')
+      return
+    }
+    // a new hire being onboarded is automatically added to the user directory
+    const users = getUsers()
+    const alreadyExists = users.some(u => u.name === name)
+    if (!alreadyExists) {
+      users.push({ id: Date.now() + 1, name, dept, role: 'Employee', email: '' })
+      setUsers(users)
+    }
   }
 
   const records = getOnboarding()

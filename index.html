@@ -105,7 +105,7 @@
             <label>Title</label>
             <input type="text" id="ticketTitle" placeholder="e.g. Printer not connecting">
             <label>Requester</label>
-            <input type="text" id="ticketRequester" placeholder="e.g. Sarah from Accounting">
+            <select id="ticketRequester"></select>
             <label>Category</label>
             <select id="ticketCategory">
               <option>Hardware</option>
@@ -210,15 +210,25 @@
         <div class="modal-overlay" id="onboardModalOverlay">
           <div class="modal">
             <h2>New Record</h2>
-            <label>Employee Name</label>
-            <input type="text" id="onboardName" placeholder="e.g. Maria Schmidt">
-            <label>Department</label>
-            <input type="text" id="onboardDept" placeholder="e.g. Accounting">
+
             <label>Type</label>
             <select id="onboardType">
-              <option value="Onboarding">Onboarding</option>
-              <option value="Offboarding">Offboarding</option>
+              <option value="Onboarding">Onboarding (new hire)</option>
+              <option value="Offboarding">Offboarding (existing employee)</option>
             </select>
+
+            <div id="onboardNewFields">
+              <label>Employee Name</label>
+              <input type="text" id="onboardName" placeholder="e.g. Maria Schmidt">
+              <label>Department</label>
+              <input type="text" id="onboardDept" placeholder="e.g. Accounting">
+            </div>
+
+            <div id="onboardExistingFields" class="hidden">
+              <label>Select Employee</label>
+              <select id="onboardUserPicker"></select>
+            </div>
+
             <label id="onboardDateLabel">Start Date</label>
             <input type="date" id="onboardDate">
             <div class="modal-actions">
@@ -230,12 +240,40 @@
       </section>
 
       <section class="page" id="page-users">
-        <p class="page-placeholder">
-          A simple user directory will live here: name, department, role,
-          and the assets assigned to each person.
-          <br><br>
-          <strong>Coming in Stage 4.</strong>
-        </p>
+        <div class="toolbar">
+          <input type="text" id="userSearch" placeholder="Search by name or department...">
+          <button id="newUserBtn" class="btn">+ Add User</button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="userTable">
+            <thead>
+              <tr>
+                <th>Name</th><th>Department</th><th>Role</th><th>Email</th><th>Assigned Assets</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody"></tbody>
+          </table>
+          <p id="userEmptyState" class="empty-state hidden">No users match your search.</p>
+        </div>
+
+        <div class="modal-overlay" id="userModalOverlay">
+          <div class="modal">
+            <h2 id="userModalTitle">Add User</h2>
+            <label>Name</label>
+            <input type="text" id="userName" placeholder="e.g. Sarah Miller">
+            <label>Department</label>
+            <input type="text" id="userDept" placeholder="e.g. Accounting">
+            <label>Role</label>
+            <input type="text" id="userRole" placeholder="e.g. Employee">
+            <label>Email</label>
+            <input type="email" id="userEmail" placeholder="e.g. sarah.miller@company.com">
+            <div class="modal-actions">
+              <button id="userCancelBtn" class="btn btn-outline">Cancel</button>
+              <button id="userSaveBtn" class="btn">Save User</button>
+            </div>
+          </div>
+        </div>
       </section>
 
     </main>
@@ -248,6 +286,7 @@
 <script src="tickets.js"></script>
 <script src="assets.js"></script>
 <script src="onboarding.js"></script>
+<script src="users.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

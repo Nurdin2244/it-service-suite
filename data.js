@@ -7,6 +7,7 @@ const KEYS = {
   tickets: 'suite-tickets',
   assets: 'suite-assets',
   onboarding: 'suite-onboarding',
+  users: 'suite-users',
 }
 
 function seedTickets() {
@@ -69,6 +70,15 @@ function makeItems(type, doneCount) {
   return CHECKLIST_TEMPLATES[type].map((text, i) => ({ text, done: i < doneCount }))
 }
 
+function seedUsers() {
+  return [
+    { id: 1, name: 'Sarah Miller', dept: 'Accounting', role: 'Employee', email: 'sarah.miller@company.com' },
+    { id: 2, name: 'James Cole', dept: 'Sales', role: 'Employee', email: 'james.cole@company.com' },
+    { id: 3, name: 'Amina Yusuf', dept: 'Remote Team', role: 'Employee', email: 'amina.yusuf@company.com' },
+    { id: 4, name: 'Tom Weber', dept: 'Sales', role: 'Employee', email: 'tom.weber@company.com' },
+  ]
+}
+
 function loadData(key, seedFn) {
   const saved = localStorage.getItem(key)
   if (saved) return JSON.parse(saved)
@@ -84,7 +94,9 @@ function saveData(key, data) {
 function getTickets() { return loadData(KEYS.tickets, seedTickets) }
 function getAssets() { return loadData(KEYS.assets, seedAssets) }
 function getOnboarding() { return loadData(KEYS.onboarding, seedOnboarding) }
+function getUsers() { return loadData(KEYS.users, seedUsers) }
 
 function setTickets(data) { saveData(KEYS.tickets, data) }
 function setAssets(data) { saveData(KEYS.assets, data) }
 function setOnboarding(data) { saveData(KEYS.onboarding, data) }
+function setUsers(data) { saveData(KEYS.users, data) }

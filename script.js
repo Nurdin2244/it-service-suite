@@ -17,7 +17,7 @@ const renderMap = {
   tickets: renderTickets,
   assets: renderAssets,
   onboarding: renderOnboarding,
-  users: () => {}, // Stage 4
+  users: renderUsers,
 }
 
 navItems.forEach((item) => {

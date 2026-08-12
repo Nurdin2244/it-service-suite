@@ -82,15 +82,24 @@ document.getElementById('page-tickets').addEventListener('click', (e) => {
   }
 })
 
+function populateTicketRequesterOptions() {
+  const select = document.getElementById('ticketRequester')
+  const users = getUsers()
+  select.innerHTML = users.map(u => `<option value="${escapeHtml(u.name)} - ${escapeHtml(u.dept)}">${escapeHtml(u.name)} (${escapeHtml(u.dept)})</option>`).join('')
+}
+
 ticketSearch.addEventListener('input', renderTickets)
-newTicketBtn.addEventListener('click', () => ticketModalOverlay.classList.add('active'))
+newTicketBtn.addEventListener('click', () => {
+  populateTicketRequesterOptions()
+  ticketModalOverlay.classList.add('active')
+})
 ticketCancelBtn.addEventListener('click', () => ticketModalOverlay.classList.remove('active'))
 
 ticketSaveBtn.addEventListener('click', () => {
   const title = document.getElementById('ticketTitle').value.trim()
-  const requester = document.getElementById('ticketRequester').value.trim()
+  const requester = document.getElementById('ticketRequester').value
   if (!title || !requester) {
-    alert('Please fill in a title and requester.')
+    alert('Please fill in a title and pick a requester.')
     return
   }
   const tickets = getTickets()
@@ -107,6 +116,5 @@ ticketSaveBtn.addEventListener('click', () => {
   renderDashboard()
 
   document.getElementById('ticketTitle').value = ''
-  document.getElementById('ticketRequester').value = ''
   ticketModalOverlay.classList.remove('active')
 })
