@@ -8,7 +8,27 @@
 </head>
 <body>
 
-<div class="app">
+<!-- login screen -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">IT Service Suite</div>
+    <p class="login-sub">Sign in to continue</p>
+
+    <label>Your Name</label>
+    <input type="text" id="loginName" placeholder="e.g. Alex Weber">
+
+    <label>Role</label>
+    <select id="loginRole">
+      <option>IT Admin</option>
+      <option>IT Technician</option>
+      <option>Employee</option>
+    </select>
+
+    <button id="loginBtn" class="btn login-btn">Log In</button>
+  </div>
+</div>
+
+<div class="app" id="app">
 
   <!-- sidebar -->
   <aside class="sidebar" id="sidebar">
@@ -37,6 +57,10 @@
     <header class="topbar">
       <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
       <h1 class="page-title" id="pageTitle">Dashboard</h1>
+      <div class="topbar-user">
+        <span class="user-info" id="userInfo"></span>
+        <button id="logoutBtn" class="btn btn-outline">Log Out</button>
+      </div>
     </header>
 
     <main class="content">
@@ -287,6 +311,7 @@
 <script src="assets.js"></script>
 <script src="onboarding.js"></script>
 <script src="users.js"></script>
+<script src="login.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
